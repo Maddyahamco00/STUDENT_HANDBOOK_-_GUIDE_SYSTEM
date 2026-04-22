@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title : 'Student Handbook Guide System' %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="/">Student Handbook</a>
+      </div>
+      <nav class="main-nav">
+        <% if (typeof user !== 'undefined' && user) { %>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/handbook">Handbook</a>
+          <a href="/registration/steps">Registration</a>
+          <% if (user.role === 'admin' || user.role === 'super_admin') { %>
+            <a href="/admin/dashboard">Admin Panel</a>
+          <% } %>
+          <a href="/dashboard/profile">Profile</a>
+          <a href="/auth/logout" class="btn-logout">Logout</a>
+        <% } else { %>
+          <a href="/auth/login">Login</a>
+          <a href="/auth/register" class="btn-primary">Register</a>
+        <% } %>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <%- body %>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 Student Handbook Guide System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

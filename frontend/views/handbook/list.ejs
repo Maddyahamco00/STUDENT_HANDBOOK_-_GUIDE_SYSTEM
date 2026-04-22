@@ -1,0 +1,23 @@
+<%- include('../layout', { body: `
+<div class="handbook-list-page">
+  <h1>School Handbooks</h1>
+  <p>Access your institution's handbooks and policies.</p>
+  
+  <% if (handbooks && handbooks.length > 0) { %>
+    <div class="handbooks-grid">
+      <% handbooks.forEach(function(handbook) { %>
+        <div class="handbook-card">
+          <div class="handbook-icon">📘</div>
+          <h3><a href="/handbook/<%= handbook.id %>"><%= handbook.title %></a></h3>
+          <p><%= handbook.description || 'No description available' %></p>
+          <span class="handbook-date">Created: <%= new Date(handbook.created_at).toLocaleDateString() %></span>
+        </div>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <div class="empty-state">
+      <p>No handbooks available yet. Check back later!</p>
+    </div>
+  <% } %>
+</div>
+` }) %>

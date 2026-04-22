@@ -1,0 +1,102 @@
+<%- include('../layout', { body: `
+<div class="admin-dashboard">
+  <h1>Admin Dashboard</h1>
+  <p>Manage your institution's content and users.</p>
+  
+  <div class="admin-stats">
+    <div class="stat-card">
+      <div class="stat-icon">👥</div>
+      <div class="stat-content">
+        <h3><%= stats.totalUsers %></h3>
+        <p>Total Users</p>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">📘</div>
+      <div class="stat-content">
+        <h3><%= stats.totalHandbooks %></h3>
+        <p>Handbooks</p>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">📝</div>
+      <div class="stat-content">
+        <h3><%= stats.totalSteps %></h3>
+        <p>Registration Steps</p>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">📢</div>
+      <div class="stat-content">
+        <h3><%= stats.totalAnnouncements %></h3>
+        <p>Announcements</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="admin-grid">
+    <div class="admin-card">
+      <h2>📘 Handbooks</h2>
+      <p>Create and manage school handbooks and sections.</p>
+      <a href="/admin/handbooks" class="btn btn-primary">Manage Handbooks</a>
+    </div>
+    
+    <div class="admin-card">
+      <h2>📝 Registration Steps</h2>
+      <p>Set up registration workflow and deadlines.</p>
+      <a href="/admin/registration-steps" class="btn btn-primary">Manage Steps</a>
+    </div>
+    
+    <div class="admin-card">
+      <h2>👥 Users</h2>
+      <p>View and manage registered students.</p>
+      <a href="/admin/users" class="btn btn-primary">Manage Users</a>
+    </div>
+    
+    <div class="admin-card">
+      <h2>📢 Announcements</h2>
+      <p>Post announcements and notifications.</p>
+      <a href="/admin/announcements" class="btn btn-primary">Manage Announcements</a>
+    </div>
+    
+    <% if (user.role === 'super_admin') { %>
+    <div class="admin-card">
+      <h2>🏫 Institutions</h2>
+      <p>Manage schools and institutions.</p>
+      <a href="/admin/institutions" class="btn btn-primary">Manage Institutions</a>
+    </div>
+    <% } %>
+  </div>
+  
+  <div class="admin-section">
+    <h2>Recent Announcements</h2>
+    <% if (recentAnnouncements && recentAnnouncements.length > 0) { %>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Message</th>
+            <th>Deadline</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% recentAnnouncements.forEach(function(ann) { %>
+            <tr>
+              <td><%= ann.title %></td>
+              <td><%= ann.message.substring(0, 100) %>...</td>
+              <td><%= ann.deadline ? new Date(ann.deadline).toLocaleDateString() : 'No deadline' %></td>
+              <td><%= new Date(ann.created_at).toLocaleDateString() %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p class="empty-state">No announcements yet.</p>
+    <% } %>
+  </div>
+</div>
+` }) %>
