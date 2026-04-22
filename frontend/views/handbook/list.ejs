@@ -1,23 +1,57 @@
-<%- include('../layout', { body: `
-<div class="handbook-list-page">
-  <h1>School Handbooks</h1>
-  <p>Access your institution's handbooks and policies.</p>
-  
-  <% if (handbooks && handbooks.length > 0) { %>
-    <div class="handbooks-grid">
-      <% handbooks.forEach(function(handbook) { %>
-        <div class="handbook-card">
-          <div class="handbook-icon">📘</div>
-          <h3><a href="/handbook/<%= handbook.id %>"><%= handbook.title %></a></h3>
-          <p><%= handbook.description || 'No description available' %></p>
-          <span class="handbook-date">Created: <%= new Date(handbook.created_at).toLocaleDateString() %></span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handbooks - Student Handbook Guide System</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="/">Student Handbook</a>
+      </div>
+      <nav class="main-nav">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/handbook">Handbook</a>
+        <a href="/registration/steps">Registration</a>
+        <a href="/dashboard/profile">Profile</a>
+        <a href="/auth/logout" class="btn-logout">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="handbook-list-page">
+      <h1>School Handbooks</h1>
+      <p>Access your institution's handbooks and policies.</p>
+      
+      <% if (typeof handbooks !== 'undefined' && handbooks && handbooks.length > 0) { %>
+        <div class="handbooks-grid">
+          <% handbooks.forEach(function(handbook) { %>
+            <div class="handbook-card">
+              <div class="handbook-icon">📘</div>
+              <h3><a href="/handbook/<%= handbook.id %>"><%= handbook.title %></a></h3>
+              <p><%= handbook.description || 'No description available' %></p>
+              <span class="handbook-date">Created: <%= new Date(handbook.created_at).toLocaleDateString() %></span>
+            </div>
+          <% }); %>
         </div>
-      <% }); %>
+      <% } else { %>
+        <div class="empty-state">
+          <p>No handbooks available yet. Check back later!</p>
+        </div>
+      <% } %>
     </div>
-  <% } else { %>
-    <div class="empty-state">
-      <p>No handbooks available yet. Check back later!</p>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 Student Handbook Guide System. All rights reserved.</p>
     </div>
-  <% } %>
-</div>
-` }) %>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

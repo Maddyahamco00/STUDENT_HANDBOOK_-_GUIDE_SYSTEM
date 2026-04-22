@@ -1,113 +1,146 @@
-<%- include('../layout', { body: `
-<div class="registration-page">
-  <h1>Registration Steps</h1>
-  <p>Follow the steps below to complete your registration.</p>
-  
-  <% if (announcements && announcements.length > 0) { %>
-    <div class="announcements-banner">
-      <h2>📢 Important Announcements</h2>
-      <% announcements.forEach(function(announcement) { %>
-        <div class="banner-announcement">
-          <strong><%= announcement.title %></strong>
-          <p><%= announcement.message %></p>
-          <% if (announcement.deadline) { %>
-            <span class="deadline">Deadline: <%= new Date(announcement.deadline).toLocaleDateString() %></span>
-          <% } %>
-        </div>
-      <% }); %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Steps - Student Handbook Guide System</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="/">Student Handbook</a>
+      </div>
+      <nav class="main-nav">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/handbook">Handbook</a>
+        <a href="/registration/steps">Registration</a>
+        <a href="/dashboard/profile">Profile</a>
+        <a href="/auth/logout" class="btn-logout">Logout</a>
+      </nav>
     </div>
-  <% } %>
-  
-  <% if (steps && steps.length > 0) { %>
-    <div class="steps-timeline">
-      <% steps.forEach(function(step, index) { %>
-        <div class="step-item <%= step.status %>">
-          <div class="step-number">
-            <% if (step.status === 'completed') { %>
-              ✓
-            <% } else { %>
-              <%= index + 1 %>
-            <% } %>
-          </div>
-          
-          <div class="step-content">
-            <h3><%= step.title %></h3>
-            <% if (step.description) { %>
-              <p><%= step.description %></p>
-            <% } %>
-            
-            <% if (step.required_documents) { %>
-              <div class="required-docs">
-                <strong>Required Documents:</strong>
-                <ul>
-                  <% step.required_documents.split(',').forEach(function(doc) { %>
-                    <li><%= doc.trim() %></li>
-                  <% }); %>
-                </ul>
-              </div>
-            <% } %>
-            
-            <% if (step.deadline) { %>
-              <div class="step-deadline">
-                <span class="deadline">📅 Deadline: <%= new Date(step.deadline).toLocaleDateString() %></span>
-              </div>
-            <% } %>
-            
-            <div class="step-status">
-              <span class="status-badge <%= step.status %>">
-                <% if (step.status === 'completed') { %>
-                  ✅ Completed
-                <% } else if (step.status === 'in_progress') { %>
-                  🔄 In Progress
-                <% } else { %>
-                  ⏳ Pending
-                <% } %>
-              </span>
-              
-              <% if (step.status !== 'completed') { %>
-                <button class="btn btn-sm btn-primary" onclick="markStepComplete(<%= step.id %>)">
-                  Mark as Complete
-                </button>
+  </header>
+
+  <main class="main-content">
+    <div class="registration-page">
+      <h1>Registration Steps</h1>
+      <p>Follow the steps below to complete your registration.</p>
+      
+      <% if (typeof announcements !== 'undefined' && announcements && announcements.length > 0) { %>
+        <div class="announcements-banner">
+          <h2>📢 Important Announcements</h2>
+          <% announcements.forEach(function(announcement) { %>
+            <div class="banner-announcement">
+              <strong><%= announcement.title %></strong>
+              <p><%= announcement.message %></p>
+              <% if (announcement.deadline) { %>
+                <span class="deadline">Deadline: <%= new Date(announcement.deadline).toLocaleDateString() %></span>
               <% } %>
             </div>
-            
-            <% if (step.completed_at) { %>
-              <span class="completed-date">Completed on: <%= new Date(step.completed_at).toLocaleDateString() %></span>
-            <% } %>
-          </div>
+          <% }); %>
         </div>
-      <% }); %>
+      <% } %>
+      
+      <% if (typeof steps !== 'undefined' && steps && steps.length > 0) { %>
+        <div class="steps-timeline">
+          <% steps.forEach(function(step, index) { %>
+            <div class="step-item <%= step.status %>">
+              <div class="step-number">
+                <% if (step.status === 'completed') { %>
+                  ✓
+                <% } else { %>
+                  <%= index + 1 %>
+                <% } %>
+              </div>
+              
+              <div class="step-content">
+                <h3><%= step.title %></h3>
+                <% if (step.description) { %>
+                  <p><%= step.description %></p>
+                <% } %>
+                
+                <% if (step.required_documents) { %>
+                  <div class="required-docs">
+                    <strong>Required Documents:</strong>
+                    <ul>
+                      <% step.required_documents.split(',').forEach(function(doc) { %>
+                        <li><%= doc.trim() %></li>
+                      <% }); %>
+                    </ul>
+                  </div>
+                <% } %>
+                
+                <% if (step.deadline) { %>
+                  <div class="step-deadline">
+                    <span class="deadline">📅 Deadline: <%= new Date(step.deadline).toLocaleDateString() %></span>
+                  </div>
+                <% } %>
+                
+                <div class="step-status">
+                  <span class="status-badge <%= step.status %>">
+                    <% if (step.status === 'completed') { %>
+                      ✅ Completed
+                    <% } else if (step.status === 'in_progress') { %>
+                      🔄 In Progress
+                    <% } else { %>
+                      ⏳ Pending
+                    <% } %>
+                  </span>
+                  
+                  <% if (step.status !== 'completed') { %>
+                    <button class="btn btn-sm btn-primary" onclick="markStepComplete(<%= step.id %>)">
+                      Mark as Complete
+                    </button>
+                  <% } %>
+                </div>
+                
+                <% if (step.completed_at) { %>
+                  <span class="completed-date">Completed on: <%= new Date(step.completed_at).toLocaleDateString() %></span>
+                <% } %>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <div class="empty-state">
+          <p>No registration steps available yet. Check back later!</p>
+        </div>
+      <% } %>
     </div>
-  <% } else { %>
-    <div class="empty-state">
-      <p>No registration steps available yet. Check back later!</p>
-    </div>
-  <% } %>
-</div>
+  </main>
 
-<script>
-function markStepComplete(stepId) {
-  if (confirm('Are you sure you want to mark this step as complete?')) {
-    fetch('/registration/steps/' + stepId + '/update', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ status: 'completed' })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        location.reload();
-      } else {
-        alert('Failed to update status. Please try again.');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('An error occurred. Please try again.');
-    });
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 Student Handbook Guide System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script>
+  function markStepComplete(stepId) {
+    if (confirm('Are you sure you want to mark this step as complete?')) {
+      fetch('/registration/steps/' + stepId + '/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status: 'completed' })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          location.reload();
+        } else {
+          alert('Failed to update status. Please try again.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+      });
+    }
   }
-}
-</script>
-` }) %>
+  </script>
+</body>
+</html>

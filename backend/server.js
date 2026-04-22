@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, '../frontend/public')));
 
 // Session configuration
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'student-handbook-secret-key',
+  secret: process.env.SESSION_SECRET || '15823049f52e77040f11cb660d5d7e88f3fa7c5c3ed912cdf07dc57e60f313b748c5490b2e33b55dc8348f30fa539eb4d60cdb8395f0b28c0abdb1619c3ccf96',
   resave: false,
   saveUninitialized: false,
   cookie: {

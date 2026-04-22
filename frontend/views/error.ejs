@@ -1,23 +1,54 @@
-<%- include('layout', { body: `
-<div class="error-page">
-  <div class="error-container">
-    <h1>Oops! Something went wrong</h1>
-    
-    <% if (typeof message !== 'undefined') { %>
-      <p class="error-message"><%= message %></p>
-    <% } %>
-    
-    <% if (typeof error !== 'undefined' && error && error.stack) { %>
-      <details class="error-details">
-        <summary>Error Details</summary>
-        <pre><%= error.stack %></pre>
-      </details>
-    <% } %>
-    
-    <div class="error-actions">
-      <a href="/" class="btn btn-primary">Go Home</a>
-      <a href="javascript:history.back()" class="btn btn-secondary">Go Back</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error - Student Handbook Guide System</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="/">Student Handbook</a>
+      </div>
+      <nav class="main-nav">
+        <a href="/">Home</a>
+        <a href="/auth/login">Login</a>
+      </nav>
     </div>
-  </div>
-</div>
-` }) %>
+  </header>
+
+  <main class="main-content">
+    <div class="error-page">
+      <div class="error-container">
+        <h1>Oops! Something went wrong</h1>
+        
+        <% if (typeof message !== 'undefined') { %>
+          <p class="error-message"><%= message %></p>
+        <% } %>
+        
+        <% if (typeof error !== 'undefined' && error && error.stack) { %>
+          <details class="error-details">
+            <summary>Error Details</summary>
+            <pre><%= error.stack %></pre>
+          </details>
+        <% } %>
+        
+        <div class="error-actions">
+          <a href="/" class="btn btn-primary">Go Home</a>
+          <a href="javascript:history.back()" class="btn btn-secondary">Go Back</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container">
+      <p>&copy; 2026 Student Handbook Guide System. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
